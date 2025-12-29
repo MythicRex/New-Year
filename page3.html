@@ -1,95 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Happy New Year 🎆</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="newyear.css">
+  <head>
+    <meta charset="UTF-8">
+    <title>happy new year | Pure CSS</title>
+    <meta name="viewport" content="width=1000, user-scalable=no"><link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css">
+<link rel="stylesheet" href="./style.css">
 
-<style>
-/* ===== TIMER SCREEN ===== */
-#timerScreen{
-  position:fixed;
-  inset:0;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-  background:url("bg2.jpg") center/cover no-repeat;
-  color:#fff;
-  font-family: system-ui, sans-serif;
-  z-index:10;
-}
-
-#timer{
-  font-size:64px;
-  font-weight:700;
-  margin-top:10px;
-}
-
-/* ===== HIDE ANIMATION INITIALLY ===== */
-#newYearAnimation{
-  display:none;
-}
-</style>
-</head>
-
-<body>
-
-<!-- ⏱ TIMER -->
-<div id="timerScreen">
-  <h1>Let’s Beginn !!</h1>
-  <div id="timer">0:10</div>
+  </head>
+    
+  <body>
+  <div class="feliz">Happy new year</div>
+<div class="ano_novo">
+  <span>202</span>
+  <span class="seis">5</span>
+  <span class="sete">6</span>
+  <div class="balao"></div>
 </div>
-
-<!-- 🎆 NEW YEAR ANIMATION -->
-<div id="newYearAnimation">
-  <div class="feliz">Happy New Year</div>
-
-  <div class="ano_novo">
-    <span>202</span>
-    <span class="seis">5</span>
-    <span class="sete">6</span>
-    <div class="balao"></div>
+<div class="fogos">
+  <div class="f1">
+    <span><i></i></span>
+    <span><i></i></span>
+    <span><i></i></span>
   </div>
-
-  <div class="fogos">
-    <div class="f1"><span><i></i></span><span><i></i></span><span><i></i></span></div>
-    <div class="f2"><span><i></i></span><span><i></i></span><span><i></i></span></div>
-    <div class="f3"><span><i></i></span><span><i></i></span><span><i></i></span></div>
-    <div class="f4"><span><i></i></span><span><i></i></span><span><i></i></span></div>
+  <div class="f2">
+    <span><i></i></span>
+    <span><i></i></span>
+    <span><i></i></span>
+  </div>
+  <div class="f3">
+    <span><i></i></span>
+    <span><i></i></span>
+    <span><i></i></span>
+  </div>
+  <div class="f4">
+    <span><i></i></span>
+    <span><i></i></span>
+    <span><i></i></span>
   </div>
 </div>
-
-<script>
-/* ⏱ COUNTDOWN */
-let time = 10;
-const timerEl = document.getElementById("timer");
-const timerScreen = document.getElementById("timerScreen");
-const animation = document.getElementById("newYearAnimation");
-
-const countdown = setInterval(()=>{
-  time--;
-  timerEl.textContent = "0:" + String(time).padStart(2,"0");
-
-  if(time <= 0){
-    clearInterval(countdown);
-
-    // hide timer
-    timerScreen.style.display = "none";
-
-    // show animation
-    animation.style.display = "block";
-
-    // 🔁 redirect after animation (optional)
-    setTimeout(()=>{
-      window.location.href = "page4.html";
-    }, 14000); // after animation completes
-  }
-},1000);
-</script>
-
-</body>
+<a href="https://twitter.com/cecelabomfim" class="author">Marcela Bomfim</a>
+    
+  </body>
+  
 </html>
