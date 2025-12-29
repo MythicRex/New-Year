@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy New Year 🎉</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  background:#ffb6c1;
+  overflow:hidden;
+}
+
+/* text */
+h1{
+  margin-bottom:30px;
+  font-size:clamp(26px,6vw,40px);
+  color:#fff;
+  letter-spacing:1px;
+}
+
+/* cake container */
+.cake{
+  position:relative;
+  width:180px;
+  height:120px;
+}
+
+/* cake layers */
+.layer{
+  position:absolute;
+  width:100%;
+  height:35px;
+  background:#8b5a2b;
+  border-radius:10px;
+}
+
+.layer.top{
+  top:0;
+}
+.layer.middle{
+  top:35px;
+  background:#a97142;
+}
+.layer.bottom{
+  top:70px;
+  background:#8b5a2b;
+}
+
+/* icing */
+.icing{
+  position:absolute;
+  top:0;
+  width:100%;
+  height:22px;
+  background:#fff;
+  border-radius:10px;
+}
+.icing::after{
+  content:"";
+  position:absolute;
+  left:15px;
+  right:15px;
+  bottom:-12px;
+  height:20px;
+  background:
+    radial-gradient(circle at 10% 0,#fff 60%,transparent 61%),
+    radial-gradient(circle at 30% 0,#fff 60%,transparent 61%),
+    radial-gradient(circle at 50% 0,#fff 60%,transparent 61%),
+    radial-gradient(circle at 70% 0,#fff 60%,transparent 61%),
+    radial-gradient(circle at 90% 0,#fff 60%,transparent 61%);
+}
+
+/* candle */
+.candle{
+  position:absolute;
+  top:-40px;
+  left:50%;
+  transform:translateX(-50%);
+  width:6px;
+  height:35px;
+  background:#fff;
+  border-radius:3px;
+}
+
+/* flame */
+.flame{
+  position:absolute;
+  top:-14px;
+  left:50%;
+  transform:translateX(-50%);
+  width:10px;
+  height:14px;
+  background:orange;
+  border-radius:50% 50% 50% 50%;
+  animation:flicker 0.2s infinite alternate;
+}
+
+@keyframes flicker{
+  from{
+    transform:translateX(-50%) scale(1);
+    opacity:0.9;
+  }
+  to{
+    transform:translateX(-50%) scale(1.1);
+    opacity:1;
+  }
+}
+
+/* plate */
+.plate{
+  margin-top:8px;
+  width:220px;
+  height:10px;
+  background:#fff;
+  border-radius:50%;
+}
+
+/* bottom text */
+p{
+  margin-top:25px;
+  font-size:18px;
+  color:#fff;
+  opacity:0.9;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Happyyy New Yearr !!!</h1>
+
+<div class="cake">
+  <div class="candle">
+    <div class="flame"></div>
+  </div>
+
+  <div class="icing"></div>
+
+  <div class="layer top"></div>
+  <div class="layer middle"></div>
+  <div class="layer bottom"></div>
+</div>
+
+<div class="plate"></div>
+
+<p>With Love ❤️</p>
+
+</body>
+</html>
