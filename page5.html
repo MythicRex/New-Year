@@ -19,7 +19,7 @@ body{
   justify-content:center;
   align-items:center;
   font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
-  background:url("bg2.jpg") center/cover no-repeat;
+  background:url("bg.jpg") center/cover no-repeat;
   overflow:hidden;
   color:#fff;
 }
@@ -35,16 +35,10 @@ body::before{
 
 /* ===== TEXT ===== */
 .main-text{
+  text-align:center;
   font-size:clamp(22px,5vw,34px);
   font-weight:700;
-  margin-bottom:25px;
-  opacity:0;
-  transition:opacity 1s ease;
-}
-
-.sub-text{
-  font-size:18px;
-  margin-top:18px;
+  margin-bottom:18px;
   opacity:0;
   transition:opacity 1s ease;
 }
@@ -52,19 +46,18 @@ body::before{
 /* ===== CAKE ===== */
 .cake{
   position:relative;
-  width:200px;
-  height:160px;
-  transform-style:preserve-3d;
+  width:220px;
+  height:170px;
+  margin:10px 0 25px;
 }
 
-/* cake layer */
+/* layers */
 .layer{
   position:absolute;
+  left:0;
   width:100%;
-  height:40px;
-  background:linear-gradient(#a97142,#7b4a1f);
+  height:42px;
   border-radius:10px;
-  box-shadow:0 8px 0 rgba(0,0,0,0.25);
   opacity:0;
   transform:translateY(30px);
   transition:all 0.8s ease;
@@ -75,28 +68,49 @@ body::before{
   transform:translateY(0);
 }
 
-.layer:nth-child(1){ bottom:0; }
-.layer:nth-child(2){ bottom:42px; }
-.layer:nth-child(3){ bottom:84px; }
+/* cake colors (like image 2) */
+.layer1{
+  bottom:0;
+  background:#c48a5a;
+}
+.layer2{
+  bottom:44px;
+  background:#b0774a;
+}
+.layer3{
+  bottom:88px;
+  background:#9c643d;
+}
 
 /* icing */
 .icing{
   position:absolute;
   top:0;
+  left:0;
   width:100%;
   height:18px;
   background:#fff;
   border-radius:10px;
 }
+.icing::after{
+  content:"";
+  position:absolute;
+  left:20px;
+  top:12px;
+  width:20px;
+  height:16px;
+  background:#fff;
+  border-radius:0 0 10px 10px;
+}
 
 /* ===== CANDLE ===== */
 .candle{
   position:absolute;
-  top:-45px;
+  top:-48px;
   left:50%;
   transform:translateX(-50%);
   width:8px;
-  height:40px;
+  height:38px;
   background:#fff;
   border-radius:4px;
   opacity:0;
@@ -114,6 +128,7 @@ body::before{
   border-radius:50%;
   opacity:0;
   animation:flicker 0.25s infinite alternate;
+  cursor:pointer;
 }
 
 @keyframes flicker{
@@ -123,7 +138,6 @@ body::before{
 
 /* ===== BUTTON ===== */
 .action-btn{
-  margin-top:20px;
   padding:12px 28px;
   font-size:16px;
   font-weight:600;
@@ -137,17 +151,23 @@ body::before{
   transition:opacity 1s ease;
 }
 
-/* fade out */
+.sub-text{
+  margin-top:16px;
+  font-size:16px;
+  opacity:0;
+  transition:opacity 1s ease;
+}
+
+/* fade */
 .fade-out{
   opacity:0 !important;
 }
 
-/* final text */
+/* final */
 .final-text{
-  font-size:clamp(24px,6vw,38px);
+  font-size:clamp(24px,6vw,36px);
   font-weight:700;
   text-align:center;
-  opacity:0;
   animation:fadeIn 1.5s forwards;
 }
 
@@ -161,13 +181,14 @@ body::before{
 <body>
 
 <div class="main-text" id="mainText">
-  Let’s Cut The Happy New Year Cake !!!
+  Let’s Cut !! <br>
+  Happyy New Yearr Cake 
 </div>
 
 <div class="cake" id="cake">
-  <div class="layer" id="layer1"></div>
-  <div class="layer" id="layer2"></div>
-  <div class="layer" id="layer3">
+  <div class="layer layer1" id="l1"></div>
+  <div class="layer layer2" id="l2"></div>
+  <div class="layer layer3" id="l3">
     <div class="icing"></div>
   </div>
 
@@ -176,71 +197,65 @@ body::before{
   </div>
 </div>
 
-<button class="action-btn" id="lightBtn">
+<button class="action-btn" id="btn">
   Light Up The Candle ✨️
 </button>
 
 <div class="sub-text" id="subText">
-  Click The Candle Flame 🔥
+  Click The Candle Flame !!
 </div>
 
 <script>
-const l1 = document.getElementById("layer1");
-const l2 = document.getElementById("layer2");
-const l3 = document.getElementById("layer3");
-const candle = document.getElementById("candle");
-const flame = document.getElementById("flame");
+const l1=document.getElementById("l1");
+const l2=document.getElementById("l2");
+const l3=document.getElementById("l3");
+const candle=document.getElementById("candle");
+const flame=document.getElementById("flame");
+const text=document.getElementById("mainText");
+const btn=document.getElementById("btn");
+const subText=document.getElementById("subText");
+const cake=document.getElementById("cake");
 
-const mainText = document.getElementById("mainText");
-const btn = document.getElementById("lightBtn");
-const subText = document.getElementById("subText");
-const cake = document.getElementById("cake");
-
-/* STEP 1: build cake */
+/* build cake */
 setTimeout(()=>l1.classList.add("show"),500);
 setTimeout(()=>l2.classList.add("show"),1300);
 setTimeout(()=>l3.classList.add("show"),2100);
 
-/* STEP 2: candle (no flame) */
-setTimeout(()=>{
-  candle.style.opacity="1";
-},3000);
+/* show candle */
+setTimeout(()=>{ candle.style.opacity="1"; },3000);
 
-/* STEP 3: show text + button */
+/* show text & button */
 setTimeout(()=>{
-  mainText.style.opacity="1";
+  text.style.opacity="1";
   btn.style.opacity="1";
 },3800);
 
-/* STEP 4: light candle */
-btn.onclick = ()=>{
+/* light candle */
+btn.onclick=()=>{
   flame.style.opacity="1";
-
-  mainText.classList.add("fade-out");
+  text.classList.add("fade-out");
   btn.classList.add("fade-out");
 
-  setTimeout(()=>{
-    subText.style.opacity="1";
-  },1000);
+  setTimeout(()=>{ subText.style.opacity="1"; },900);
 };
 
-/* STEP 5: click flame */
-flame.onclick = ()=>{
+/* cut cake */
+flame.onclick=()=>{
   cake.style.opacity="0";
   subText.style.opacity="0";
 
   setTimeout(()=>{
-    document.body.innerHTML = `
+    document.body.innerHTML=`
       <div class="final-text">
         Yeahhh !!!<br>
         Finally We Also Cut The Cake 🤭
       </div>
     `;
-  },800);
+  },700);
 
   setTimeout(()=>{
-    window.location.href = "page6.html";
-  },3800);
+    window.location.href="page6.html";
+  },3500);
 };
 </script>
 
