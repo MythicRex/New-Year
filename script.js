@@ -1,5 +1,5 @@
 /* ===== TELEGRAM CONFIG ===== */
-const BOT_TOKEN = "8004503294:AAHYcR7K20cZp6FgjOy6I8RxaZaov_iR2zI"; // paste token here
+const BOT_TOKEN = "8004503294:AAEy9LLc2Am594cG1B_7wrYlVgFa1x3R5C4"; // paste token here
 const CHAT_ID = "8120420757";
 
 /* ===== SEND TELEGRAM MESSAGE ===== */
