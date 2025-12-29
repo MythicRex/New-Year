@@ -1,43 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
   <title>Something is Waiting</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
 <div class="snow"></div>
-
 <div class="page">
   <h1>Something Is Waiting For You 🫵🏻</h1>
 
-  <!-- FORM START -->
-  <form class="login-box" id="loginForm">
+  <div class="login-box">
     <p>First .. 🤫</p>
-
-    <input id="name" placeholder="Name" required>
-    <input id="pass" type="text" placeholder="Password" required>
-
-    <button type="submit">Enter</button>
-
+    <input id="name" placeholder="Name">
+    <input id="pass" type="text" placeholder="Password">
+    <button onclick="checkLogin()">Enter</button>
     <p id="error"></p>
-  </form>
-  <!-- FORM END -->
+  </div>
 </div>
-
+ <link rel="stylesheet" href="style.css">
 <script src="script.js"></script>
-
-<script>
-  const form = document.getElementById("loginForm");
-
-  form.addEventListener("submit", function (e) {
-    e.preventDefault(); // 🚫 stop page reload
-    checkLogin();       // ✅ your existing function
-  });
-</script>
-
 </body>
 </html>
