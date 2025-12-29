@@ -24,6 +24,7 @@ body{
   overflow:hidden;
   background:url("bg1.jpg") no-repeat center center;
   background-size:cover;
+  position:relative;
 }
 
 body::before{
@@ -31,7 +32,7 @@ body::before{
   position:fixed;
   inset:0;
   background:rgba(0,0,0,0.25);
-  z-index:-1;
+  z-index:0;
 }
 
 /* top text */
@@ -39,6 +40,7 @@ body::before{
   font-size:clamp(26px,5vw,38px);
   font-weight:700;
   margin-bottom:20px;
+  z-index:2;
 }
 
 /* tap text */
@@ -46,6 +48,7 @@ body::before{
   font-size:clamp(18px,4vw,24px);
   margin-top:15px;
   opacity:0.9;
+  z-index:2;
 }
 
 /* envelope */
@@ -105,10 +108,9 @@ body::before{
   color:#fff;
   box-shadow:0 10px 25px rgba(0,0,0,0.35);
   animation:fadeIn 1s ease forwards;
+  z-index:2;
 }
-.next-btn:hover{
-  transform:scale(1.05);
-}
+.next-btn:hover{ transform:scale(1.05); }
 
 /* scrollbar */
 .letter::-webkit-scrollbar{ width:6px; }
@@ -164,6 +166,9 @@ body::before{
 
 <div id="snow-container"></div>
 
+<!-- 🎵 BACKGROUND MUSIC -->
+<audio id="bgMusic" src="bg-music.mp3" loop></audio>
+
 <script>
 const envelope = document.getElementById("envelope");
 const letter = document.getElementById("letter");
@@ -171,6 +176,7 @@ const nextBtn = document.getElementById("nextBtn");
 const topText = document.querySelector(".top-text");
 const tapText = document.querySelector(".tap-text");
 const letterTopText = document.getElementById("letterTopText");
+const bgMusic = document.getElementById("bgMusic");
 
 const letterContent = `
 ❤️‍🔥<br><br>
@@ -196,7 +202,7 @@ Kyukii Tumhare Saath Lagta Hai Har Din Ek Naya Season. ✨<br><br>
 let i = 0;
 function typeHTML(){
   if(i >= letterContent.length){
-    nextBtn.style.display = "block"; // ⭐ SHOW BUTTON
+    nextBtn.style.display = "block";
     return;
   }
 
@@ -213,6 +219,7 @@ function typeHTML(){
   setTimeout(typeHTML, 28);
 }
 
+/* 💌 ENVELOPE CLICK */
 envelope.addEventListener("click", ()=>{
   envelope.style.display="none";
   topText.style.display="none";
@@ -222,16 +229,25 @@ envelope.addEventListener("click", ()=>{
   letter.style.display="block";
   nextBtn.style.display="none";
 
+  // 🎵 START MUSIC
+  bgMusic.volume = 0.6;
+  bgMusic.play();
+
   letter.innerHTML="";
   i=0;
   typeHTML();
 });
 
+/* NEXT BUTTON */
 nextBtn.addEventListener("click", ()=>{
-  window.location.href = "page2.html"; // change if needed
+  // 🔇 STOP MUSIC
+  bgMusic.pause();
+  bgMusic.currentTime = 0;
+
+  window.location.href = "page2.html";
 });
 
-/* snow */
+/* ❄️ SNOW */
 const snowContainer=document.getElementById("snow-container");
 function createSnowflake(){
   const s=document.createElement("div");
