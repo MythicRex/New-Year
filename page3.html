@@ -4,22 +4,23 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>New Year Surprise 🎆</title>
-
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html, body {
+  width:100%; height:100%;
 }
 
-body{
-  height:100vh;
-  background:url("bg2.jpg") center/cover no-repeat;
+body {
+  background: url("bg2.jpg") no-repeat center center;
+  background-size: cover;
   display:flex;
   justify-content:center;
   align-items:center;
-  overflow:hidden;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  overflow:hidden;
+  position: relative;
+  color:#fff;
 }
 
 /* dark overlay */
@@ -27,14 +28,14 @@ body::before{
   content:"";
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,0.45);
-  z-index:-1;
+  background: rgba(0,0,0,0.45);
+  z-index:0;
 }
 
-/* INTRO */
+/* intro */
 .intro{
   text-align:center;
-  color:#fff;
+  z-index:2;
 }
 
 .intro h1{
@@ -42,30 +43,23 @@ body::before{
   margin-bottom:10px;
 }
 
-/* TIMER (previous better size) */
 #timer{
   font-size:clamp(42px,7vw,72px);
   font-weight:700;
   letter-spacing:2px;
 }
 
-/* FINAL TEXT */
+/* final text */
 .final{
   display:none;
-  position:absolute;
   text-align:center;
-  color:#fff;
+  z-index:2;
   font-size:clamp(34px,6vw,56px);
   font-weight:600;
   animation:fadeIn 2s forwards;
 }
 
-@keyframes fadeIn{
-  from{opacity:0; transform:scale(0.9);}
-  to{opacity:1; transform:scale(1);}
-}
-
-/* NEXT BUTTON */
+/* next button */
 .next-btn{
   display:none;
   margin-top:25px;
@@ -81,17 +75,44 @@ body::before{
   animation:fadeIn 1.5s forwards;
 }
 
-/* FIREWORK CANVAS */
-canvas{
+/* fireworks canvas */
+canvas#fireworks{
   position:fixed;
   inset:0;
   pointer-events:none;
+  z-index:1;
+}
+
+/* snow */
+#snow-container{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:1;
+}
+.snowflake{
+  position:absolute;
+  top:-10px;
+  color:white;
+  opacity:0.8;
+  animation:fall linear infinite;
+  user-select:none;
+}
+
+/* fade */
+@keyframes fadeIn{
+  from{opacity:0; transform:scale(0.9);}
+  to{opacity:1; transform:scale(1);}
+}
+@keyframes fall{
+  to{ transform:translateY(110vh); }
 }
 </style>
 </head>
-
 <body>
-<div class="snow"></div>
+
+<div id="snow-container"></div>
+
 <div class="intro" id="intro">
   <h1>Let’s Beginn !!! ✨</h1>
   <div id="timer">0:10</div>
@@ -105,18 +126,15 @@ canvas{
 </div>
 
 <canvas id="fireworks"></canvas>
-
 <audio id="sound" src="firework.mp3" loop></audio>
 
 <script>
 /* COUNTDOWN */
 let time = 10;
 const timerEl = document.getElementById("timer");
-
 const countdown = setInterval(()=>{
   time--;
   timerEl.textContent = "0:" + String(time).padStart(2,"0");
-
   if(time <= 0){
     clearInterval(countdown);
     document.getElementById("intro").style.display="none";
@@ -124,37 +142,34 @@ const countdown = setInterval(()=>{
   }
 },1000);
 
-/* SHOW FINAL */
+/* SHOW FINAL TEXT */
 function showFinal(){
   const finalText = document.getElementById("finalText");
-  finalText.style.display = "block";
+  finalText.style.display="block";
 
   const sound = document.getElementById("sound");
-  sound.play(); // 🔁 starts looping
+  sound.play();
 
   startFireworks();
 
-  // show NEXT button after 3 seconds
   setTimeout(()=>{
-    document.getElementById("nextBtn").style.display = "inline-block";
+    document.getElementById("nextBtn").style.display="inline-block";
   },3000);
 }
 
-/* NEXT BUTTON CLICK */
+/* NEXT BUTTON */
 document.getElementById("nextBtn").onclick = ()=>{
   const sound = document.getElementById("sound");
   sound.pause();
-  sound.currentTime = 0; // 🔇 stop sound
-  window.location.href = "page4.html";
+  sound.currentTime=0;
+  window.location.href="page4.html";
 };
 
 /* FIREWORKS */
 const canvas = document.getElementById("fireworks");
 const ctx = canvas.getContext("2d");
-
 canvas.width = innerWidth;
 canvas.height = innerHeight;
-
 let particles=[];
 
 function startFireworks(){
@@ -172,26 +187,19 @@ function startFireworks(){
       });
     }
   },800);
-
   animate();
 }
 
 function animate(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
   for(let i=particles.length-1;i>=0;i--){
-    const p = particles[i];
-    p.x += p.vx;
-    p.y += p.vy;
-    p.life--;
-
+    const p=particles[i];
+    p.x+=p.vx; p.y+=p.vy; p.life--;
     ctx.fillStyle = p.color;
     ctx.beginPath();
     ctx.arc(p.x,p.y,2,0,Math.PI*2);
     ctx.fill();
-
-    if(p.life <= 0){
-      particles.splice(i,1);
-    }
+    if(p.life<=0) particles.splice(i,1);
   }
   requestAnimationFrame(animate);
 }
@@ -200,9 +208,21 @@ window.onresize = ()=>{
   canvas.width = innerWidth;
   canvas.height = innerHeight;
 };
+
+/* SNOW */
+const snowContainer = document.getElementById("snow-container");
+function createSnowflake(){
+  const s = document.createElement("div");
+  s.className="snowflake";
+  s.innerHTML=["❄","❅","❆"][Math.floor(Math.random()*3)];
+  s.style.fontSize = Math.random()*14+8+"px";
+  s.style.left = Math.random()*window.innerWidth+"px";
+  s.style.animationDuration = Math.random()*5+5+"s";
+  snowContainer.appendChild(s);
+  setTimeout(()=>s.remove(),10000);
+}
+setInterval(createSnowflake,200);
 </script>
-  <link rel="stylesheet" href="style.css">
-<script src="script.js"></script>
 
 </body>
 </html>
