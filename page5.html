@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy New Year 🎉</title>
+<title>New Year Cake 🎂</title>
 
 <style>
 *{
@@ -19,144 +19,230 @@ body{
   justify-content:center;
   align-items:center;
   font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
-  background:#ffb6c1;
+  background:url("bg2.jpg") center/cover no-repeat;
   overflow:hidden;
-}
-
-/* text */
-h1{
-  margin-bottom:30px;
-  font-size:clamp(26px,6vw,40px);
   color:#fff;
-  letter-spacing:1px;
 }
 
-/* cake container */
+/* dark overlay */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.45);
+  z-index:-1;
+}
+
+/* ===== TEXT ===== */
+.main-text{
+  font-size:clamp(22px,5vw,34px);
+  font-weight:700;
+  margin-bottom:25px;
+  opacity:0;
+  transition:opacity 1s ease;
+}
+
+.sub-text{
+  font-size:18px;
+  margin-top:18px;
+  opacity:0;
+  transition:opacity 1s ease;
+}
+
+/* ===== CAKE ===== */
 .cake{
   position:relative;
-  width:180px;
-  height:120px;
+  width:200px;
+  height:160px;
+  transform-style:preserve-3d;
 }
 
-/* cake layers */
+/* cake layer */
 .layer{
   position:absolute;
   width:100%;
-  height:35px;
-  background:#8b5a2b;
+  height:40px;
+  background:linear-gradient(#a97142,#7b4a1f);
   border-radius:10px;
+  box-shadow:0 8px 0 rgba(0,0,0,0.25);
+  opacity:0;
+  transform:translateY(30px);
+  transition:all 0.8s ease;
 }
 
-.layer.top{
-  top:0;
+.layer.show{
+  opacity:1;
+  transform:translateY(0);
 }
-.layer.middle{
-  top:35px;
-  background:#a97142;
-}
-.layer.bottom{
-  top:70px;
-  background:#8b5a2b;
-}
+
+.layer:nth-child(1){ bottom:0; }
+.layer:nth-child(2){ bottom:42px; }
+.layer:nth-child(3){ bottom:84px; }
 
 /* icing */
 .icing{
   position:absolute;
   top:0;
   width:100%;
-  height:22px;
+  height:18px;
   background:#fff;
   border-radius:10px;
 }
-.icing::after{
-  content:"";
-  position:absolute;
-  left:15px;
-  right:15px;
-  bottom:-12px;
-  height:20px;
-  background:
-    radial-gradient(circle at 10% 0,#fff 60%,transparent 61%),
-    radial-gradient(circle at 30% 0,#fff 60%,transparent 61%),
-    radial-gradient(circle at 50% 0,#fff 60%,transparent 61%),
-    radial-gradient(circle at 70% 0,#fff 60%,transparent 61%),
-    radial-gradient(circle at 90% 0,#fff 60%,transparent 61%);
-}
 
-/* candle */
+/* ===== CANDLE ===== */
 .candle{
   position:absolute;
-  top:-40px;
+  top:-45px;
   left:50%;
   transform:translateX(-50%);
-  width:6px;
-  height:35px;
+  width:8px;
+  height:40px;
   background:#fff;
-  border-radius:3px;
+  border-radius:4px;
+  opacity:0;
+  transition:opacity 0.8s ease;
 }
 
-/* flame */
 .flame{
   position:absolute;
-  top:-14px;
+  top:-16px;
   left:50%;
   transform:translateX(-50%);
-  width:10px;
-  height:14px;
+  width:12px;
+  height:16px;
   background:orange;
-  border-radius:50% 50% 50% 50%;
-  animation:flicker 0.2s infinite alternate;
+  border-radius:50%;
+  opacity:0;
+  animation:flicker 0.25s infinite alternate;
 }
 
 @keyframes flicker{
-  from{
-    transform:translateX(-50%) scale(1);
-    opacity:0.9;
-  }
-  to{
-    transform:translateX(-50%) scale(1.1);
-    opacity:1;
-  }
+  from{ transform:translateX(-50%) scale(1); }
+  to{ transform:translateX(-50%) scale(1.15); }
 }
 
-/* plate */
-.plate{
-  margin-top:8px;
-  width:220px;
-  height:10px;
-  background:#fff;
-  border-radius:50%;
-}
-
-/* bottom text */
-p{
-  margin-top:25px;
-  font-size:18px;
+/* ===== BUTTON ===== */
+.action-btn{
+  margin-top:20px;
+  padding:12px 28px;
+  font-size:16px;
+  font-weight:600;
+  border:none;
+  border-radius:30px;
+  cursor:pointer;
+  background:linear-gradient(135deg,#ff6ec4,#7873f5);
   color:#fff;
-  opacity:0.9;
+  box-shadow:0 10px 25px rgba(0,0,0,0.4);
+  opacity:0;
+  transition:opacity 1s ease;
+}
+
+/* fade out */
+.fade-out{
+  opacity:0 !important;
+}
+
+/* final text */
+.final-text{
+  font-size:clamp(24px,6vw,38px);
+  font-weight:700;
+  text-align:center;
+  opacity:0;
+  animation:fadeIn 1.5s forwards;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:scale(0.9);}
+  to{opacity:1; transform:scale(1);}
 }
 </style>
 </head>
 
 <body>
 
-<h1>Happyyy New Yearr !!!</h1>
-
-<div class="cake">
-  <div class="candle">
-    <div class="flame"></div>
-  </div>
-
-  <div class="icing"></div>
-
-  <div class="layer top"></div>
-  <div class="layer middle"></div>
-  <div class="layer bottom"></div>
+<div class="main-text" id="mainText">
+  Let’s Cut The Happy New Year Cake !!!
 </div>
 
-<div class="plate"></div>
+<div class="cake" id="cake">
+  <div class="layer" id="layer1"></div>
+  <div class="layer" id="layer2"></div>
+  <div class="layer" id="layer3">
+    <div class="icing"></div>
+  </div>
 
-<p>With Love ❤️</p>
+  <div class="candle" id="candle">
+    <div class="flame" id="flame"></div>
+  </div>
+</div>
+
+<button class="action-btn" id="lightBtn">
+  Light Up The Candle ✨️
+</button>
+
+<div class="sub-text" id="subText">
+  Click The Candle Flame 🔥
+</div>
+
+<script>
+const l1 = document.getElementById("layer1");
+const l2 = document.getElementById("layer2");
+const l3 = document.getElementById("layer3");
+const candle = document.getElementById("candle");
+const flame = document.getElementById("flame");
+
+const mainText = document.getElementById("mainText");
+const btn = document.getElementById("lightBtn");
+const subText = document.getElementById("subText");
+const cake = document.getElementById("cake");
+
+/* STEP 1: build cake */
+setTimeout(()=>l1.classList.add("show"),500);
+setTimeout(()=>l2.classList.add("show"),1300);
+setTimeout(()=>l3.classList.add("show"),2100);
+
+/* STEP 2: candle (no flame) */
+setTimeout(()=>{
+  candle.style.opacity="1";
+},3000);
+
+/* STEP 3: show text + button */
+setTimeout(()=>{
+  mainText.style.opacity="1";
+  btn.style.opacity="1";
+},3800);
+
+/* STEP 4: light candle */
+btn.onclick = ()=>{
+  flame.style.opacity="1";
+
+  mainText.classList.add("fade-out");
+  btn.classList.add("fade-out");
+
+  setTimeout(()=>{
+    subText.style.opacity="1";
+  },1000);
+};
+
+/* STEP 5: click flame */
+flame.onclick = ()=>{
+  cake.style.opacity="0";
+  subText.style.opacity="0";
+
+  setTimeout(()=>{
+    document.body.innerHTML = `
+      <div class="final-text">
+        Yeahhh !!!<br>
+        Finally We Also Cut The Cake 🤭
+      </div>
+    `;
+  },800);
+
+  setTimeout(()=>{
+    window.location.href = "page6.html";
+  },3800);
+};
+</script>
 
 </body>
 </html>
