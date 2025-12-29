@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Envelope Surprise 💌</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  text-align:center;
+  color:#fff;
+  overflow:hidden;
+  background:url("bg1.jpg") no-repeat center center;
+  background-size:cover;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.25);
+  z-index:-1;
+}
+
+/* top text */
+.top-text{
+  font-size:clamp(26px,5vw,38px);
+  font-weight:700;
+  margin-bottom:20px;
+}
+
+/* tap text */
+.tap-text{
+  font-size:clamp(18px,4vw,24px);
+  margin-top:15px;
+  opacity:0.9;
+}
+
+/* envelope */
+.envelope{
+  font-size:160px;
+  cursor:pointer;
+  margin:25px 0;
+  transition:transform 0.3s ease;
+  z-index:2;
+}
+.envelope:hover{ transform:scale(1.1); }
+
+/* letter heading */
+.letter-top-text{
+  display:none;
+  margin-bottom:12px;
+  z-index:2;
+}
+.letter-top-text .title{
+  font-size:clamp(28px,6vw,40px);
+  font-weight:700;
+}
+.letter-top-text .subtitle{
+  font-size:clamp(18px,4vw,24px);
+  opacity:0.85;
+}
+
+/* letter */
+.letter{
+  display:none;
+  font-size:18px;
+  font-weight:500;
+  background:#1f1f1f;
+  color:#f1f1f1;
+  padding:22px 25px;
+  border-radius:16px;
+  width:min(92%, 380px);
+  max-height:60vh;
+  overflow-y:auto;
+  margin-top:20px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.35);
+  animation:fadeIn 1.2s ease forwards;
+  z-index:2;
+}
+
+/* Next button */
+.next-btn{
+  display:none;
+  margin-top:18px;
+  padding:12px 28px;
+  font-size:18px;
+  font-weight:600;
+  border:none;
+  border-radius:30px;
+  cursor:pointer;
+  background:linear-gradient(135deg,#ff6ec4,#7873f5);
+  color:#fff;
+  box-shadow:0 10px 25px rgba(0,0,0,0.35);
+  animation:fadeIn 1s ease forwards;
+}
+.next-btn:hover{
+  transform:scale(1.05);
+}
+
+/* scrollbar */
+.letter::-webkit-scrollbar{ width:6px; }
+.letter::-webkit-scrollbar-thumb{
+  background:rgba(255,255,255,0.3);
+  border-radius:10px;
+}
+
+/* fade */
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+/* ❄️ snow */
+#snow-container{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:1;
+}
+.snowflake{
+  position:absolute;
+  top:-10px;
+  color:white;
+  opacity:0.8;
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  to{ transform:translateY(110vh); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="top-text">
+  Something Deep In My Heart <br>
+  You Want To See 👀 !!
+</div>
+
+<div class="envelope" id="envelope">💌</div>
+<div class="tap-text">Tap To Open ✨️</div>
+
+<div class="letter-top-text" id="letterTopText">
+  <div class="title">Hawww 🫢...</div>
+  <div class="subtitle">You Opened My Heart Thoughts</div>
+</div>
+
+<div class="letter" id="letter"></div>
+
+<button class="next-btn" id="nextBtn">Next ✨️</button>
+
+<div id="snow-container"></div>
+
+<script>
+const envelope = document.getElementById("envelope");
+const letter = document.getElementById("letter");
+const nextBtn = document.getElementById("nextBtn");
+const topText = document.querySelector(".top-text");
+const tapText = document.querySelector(".tap-text");
+const letterTopText = document.getElementById("letterTopText");
+
+const letterContent = `
+❤️‍🔥<br><br>
+
+<b>To Miss Harshita ✨️</b><br>
+Ranchi, Jharkhand<br><br>
+
+<b>Happyyy New Yearr !!!</b><br><br>
+
+I just want youu to know how grateful I am to have youu in my lifee !!
+Everyy moment with you is special, and I can’t wait to make countless more
+memories together in the yearr ahead ....<br><br>
+
+<i>Arzz Kiya Haii ...</i><br><br>
+
+Tum Ho Meri Khushi Ka Sabse Pyaara Reason ..!!<br>
+Kyukii Tumhare Saath Lagta Hai Har Din Ek Naya Season. ✨<br><br>
+
+<b>Your Bandarr</b><br>
+~Maruti 🐒
+`;
+
+let i = 0;
+function typeHTML(){
+  if(i >= letterContent.length){
+    nextBtn.style.display = "block"; // ⭐ SHOW BUTTON
+    return;
+  }
+
+  if(letterContent[i] === "<"){
+    const tagEnd = letterContent.indexOf(">", i);
+    letter.innerHTML += letterContent.slice(i, tagEnd + 1);
+    i = tagEnd + 1;
+  } else {
+    letter.innerHTML += letterContent[i];
+    i++;
+  }
+
+  letter.scrollTop = letter.scrollHeight;
+  setTimeout(typeHTML, 28);
+}
+
+envelope.addEventListener("click", ()=>{
+  envelope.style.display="none";
+  topText.style.display="none";
+  tapText.style.display="none";
+
+  letterTopText.style.display="block";
+  letter.style.display="block";
+  nextBtn.style.display="none";
+
+  letter.innerHTML="";
+  i=0;
+  typeHTML();
+});
+
+nextBtn.addEventListener("click", ()=>{
+  window.location.href = "page2.html"; // change if needed
+});
+
+/* snow */
+const snowContainer=document.getElementById("snow-container");
+function createSnowflake(){
+  const s=document.createElement("div");
+  s.className="snowflake";
+  s.innerHTML=["❄","❅","❆"][Math.floor(Math.random()*3)];
+  s.style.fontSize=Math.random()*14+8+"px";
+  s.style.left=Math.random()*window.innerWidth+"px";
+  s.style.animationDuration=Math.random()*5+5+"s";
+  snowContainer.appendChild(s);
+  setTimeout(()=>s.remove(),10000);
+}
+setInterval(createSnowflake,200);
+</script>
+
+</body>
+</html>

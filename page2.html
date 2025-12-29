@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Best Moments 2025</title>
+
+<link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+<!-- Snow -->
+<div class="snow"></div>
+
+<h1>Three Best Moments In This Year 2025 ＼(^_^)／</h1>
+
+<div class="cards">
+
+  <!-- CARD 1 -->
+  <div class="card" onclick="flipCard(this)">
+    <div class="card-inner">
+      <div class="card-face front front-1">
+        1st Moment !!
+      </div>
+      <div class="card-face back back-1">
+        <img src="moment1.jpg" alt="100 days">
+        <p>
+          <b>Hehe ..</b><br>
+          Its 100 Days To Our Relationship..!!<br>
+          We Both Had A Nice Journey :)
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 2 -->
+  <div class="card" onclick="flipCard(this)">
+    <div class="card-inner">
+      <div class="card-face front front-2">
+        2nd Moment!!
+      </div>
+      <div class="card-face back back-2">
+        <img src="moment2.jpg" alt="Birthday">
+        <p>
+          <b>Yeahh Ofc ..!!</b><br>
+          Its Your Birthday Miss ✨️<br>
+          I was very Excited About It After The Month Of August ..
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 3 -->
+  <div class="card" onclick="flipCard(this)">
+    <div class="card-inner">
+      <div class="card-face front front-3">
+       3rd Moment !!
+      </div>
+      <div class="card-face back back-3">
+        <img src="moment3.jpg" alt="First photo">
+        <p>
+          <b>Youu Guess It Rightt !!</b><br>
+          It's The First Time We Had A Photo Together ...
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<button id="nextBtn">Next</button>
+
+<audio id="bg-music" src="music.mp3" loop preload="auto"></audio>
+
+<script>
+// Play music on page load
+window.addEventListener("load", () => {
+  const music = document.getElementById("bg-music");
+  music.volume = 0.5;
+  music.play().catch(() => {});
+});
+
+// Stop music when clicking next
+document.getElementById("nextBtn").addEventListener("click", () => {
+  const music = document.getElementById("bg-music");
+  music.pause();
+  music.currentTime = 0;
+  window.location.href = "page3.html"; // change if needed
+});
+
+// Flip card
+function flipCard(card) {
+  card.classList.toggle("flipped");
+}
+</script>
+<link rel="stylesheet" href="style.css">
+<script src="script.js"></script>
+</body>
+</html>
